@@ -40,7 +40,8 @@ public class CgAnalyzeMatch {
                 } else if ("-w".equals(args[i])) {
                     withWarning = true;
                 } else if ("-s".equals(args[i])) {
-                    searchTerm = args[i + 1];
+                    i++;
+                    searchTerm = args[i];
                 }
             }
         }
