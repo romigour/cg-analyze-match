@@ -1,0 +1,1 @@
+Inspiré de https://github.com/FrequentlyMissedDeadlines/cgsubmit
