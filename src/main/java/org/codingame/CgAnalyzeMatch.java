@@ -128,14 +128,14 @@ public class CgAnalyzeMatch {
             System.out.println();
             System.out.println("-------------------------");
             System.out.println();
-            System.out.println("Liste des games contenant: " + searchTerm);
+            System.out.println("Liste des games contenant (en sortie stderr): " + searchTerm);
             for (Battle battle : battles) {
                 Agent agent = battle.getGame().getAgents().stream()
                         .filter(a -> a.getCodingamer().getUserId() == player.getUserId()).findFirst().orElse(null);
                 List<Frame> framesWithSearchTerm = battle.getGame().getFrames().stream()
                         .filter(frame -> frame.getAgentId() == agent.getIndex())
-                        .filter(frame -> frame.getSummary() != null)
-                        .filter(frame -> frame.getSummary().contains(searchTerm)).toList();
+                        .filter(frame -> frame.getStderr() != null)
+                        .filter(frame -> frame.getStderr().contains(searchTerm)).toList();
                 if (!framesWithSearchTerm.isEmpty()) {
                     System.out.println("\u27A4 Game #" + getIndexGame(battles, battle.getGameId()) +
                                 " https://www.codingame.com/replay/" + battle.getGameId());
@@ -156,7 +156,7 @@ public class CgAnalyzeMatch {
                 List<Frame> framesWithWarning = battle.getGame().getFrames().stream()
                         .filter(frame -> frame.getAgentId() == agent.getIndex())
                         .filter(frame -> frame.getSummary() != null)
-                        .filter(frame -> frame.getSummary().contains("¤RED¤")).toList();
+                        .filter(frame -> frame.getSummary().contains("¤RED¤$" + agent.getIndex())).toList();
                 if (!framesWithWarning.isEmpty()) {
                     System.out.println("\u27A4 Game #" + getIndexGame(battles, battle.getGameId()) +
                             " https://www.codingame.com/replay/" + battle.getGameId());
