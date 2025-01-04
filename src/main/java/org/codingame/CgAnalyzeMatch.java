@@ -46,7 +46,7 @@ public class CgAnalyzeMatch {
         }
 
         List<Battle> batailles = getLastGames(sessionHandle);
-        if (batailles != null || batailles.isEmpty() || batailles.stream().anyMatch(battle -> battle.getGame() == null)) {
+        if (batailles == null || batailles.isEmpty() || batailles.stream().anyMatch(battle -> battle.getGame() == null)) {
             System.err.println("\u27A4 Aucun historique récupéré pour le sessionHandle " + sessionHandle);
             return;
         }
@@ -116,7 +116,7 @@ public class CgAnalyzeMatch {
     private static long getIndexGame(List<Battle> battles, long idGame) {
         for (int i = 0; i < battles.size(); i++) {
             if (battles.get(i).getGameId() == idGame) {
-                return i+1;
+                return battles.size() - i;
             }
         }
         return -1;
@@ -132,7 +132,8 @@ public class CgAnalyzeMatch {
                 Agent agent = battle.getGame().getAgents().stream()
                         .filter(a -> a.getCodingamer().getUserId() == player.getUserId()).findFirst().orElse(null);
                 List<Frame> framesWithSearchTerm = battle.getGame().getFrames().stream()
-                        .filter(frame -> frame.getAgentId() == agent.getAgentId())
+                        .filter(frame -> frame.getAgentId() == agent.getIndex())
+                        .filter(frame -> frame.getSummary() != null)
                         .filter(frame -> frame.getSummary().contains(searchTerm)).toList();
                 if (!framesWithSearchTerm.isEmpty()) {
                     System.out.println("\u27A4 Game #" + getIndexGame(battles, battle.getGameId()) +
@@ -152,7 +153,8 @@ public class CgAnalyzeMatch {
                 Agent agent = battle.getGame().getAgents().stream()
                         .filter(a -> a.getCodingamer().getUserId() == player.getUserId()).findFirst().orElse(null);
                 List<Frame> framesWithWarning = battle.getGame().getFrames().stream()
-                        .filter(frame -> frame.getAgentId() == agent.getAgentId())
+                        .filter(frame -> frame.getAgentId() == agent.getIndex())
+                        .filter(frame -> frame.getSummary() != null)
                         .filter(frame -> frame.getSummary().contains("¤RED¤")).toList();
                 if (!framesWithWarning.isEmpty()) {
                     System.out.println("\u27A4 Game #" + getIndexGame(battles, battle.getGameId()) +
