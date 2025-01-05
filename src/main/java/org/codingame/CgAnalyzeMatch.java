@@ -7,10 +7,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.codingame.dto.*;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -23,6 +25,7 @@ public class CgAnalyzeMatch {
     private static final HttpClient client = HttpClient.newHttpClient();
 
     public static void main(String[] args) throws JsonProcessingException {
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
         // sessionHandle
         if (args.length < 1) {
             System.out.println("Usage: java -jar cg-analyze-match.jar <sessionHandle> [-l] [-w] [-s <searchTerm>]");
