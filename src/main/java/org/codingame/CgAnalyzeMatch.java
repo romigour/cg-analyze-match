@@ -25,7 +25,10 @@ public class CgAnalyzeMatch {
     private static final HttpClient client = HttpClient.newHttpClient();
 
     public static void main(String[] args) throws JsonProcessingException {
+        // Configurer la sortie standard en UTF-8
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(System.err, true, StandardCharsets.UTF_8));
+
         // sessionHandle
         if (args.length < 1) {
             System.out.println("Usage: java -jar cg-analyze-match.jar <sessionHandle> [-l] [-w] [-s <searchTerm>]");
