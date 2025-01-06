@@ -9,4 +9,7 @@ Outil inspiré de https://github.com/FrequentlyMissedDeadlines/cgsubmit
 # Tips
 
 à lancer de préférence sur un terminal unix 
-ou sinon pour le powershell windows : $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::UTF8
+ou sinon pour le powershell windows : 
+
+`$OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::UTF8`
+
